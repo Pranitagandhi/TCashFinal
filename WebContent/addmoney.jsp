@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
+
+<div align="right">
+	<a href="logout">Logout</a>
+</div>
 <style>
 form {
 	border: 3px solid #f1f1f1;
@@ -65,45 +66,39 @@ span.psw {
 	}
 }
 </style>
+<script>
+	function Alert(balance) {
+
+	alert("Money added successfully,${balance}");
+
+	}
+</script>
 <body>
-	<script>
-		function validatemobile_no(mobile_noField) {
-			var reg = /\d{3}\d{3}\d{4}/;
 
-			if (reg.test(mobile_noField.value) == false) {
-				alert('Invalid mobile_no');
-				return false;
-			}
+	<h2>Add Money</h2>
 
-			return true;
-
-		}
-	</script>
-
-	<h2>Sign Up</h2>
-
-	<form>
+	<form method="post" action="add" onsubmit="Alert(balance);">
 		<div class="imgcontainer">
 			<div align="Right">
-				<a href="Login">Login</a>
+				<a href="HOME">HOME</a>
 			</div>
 			<img src="images/t_cash1.jpg" class="avatar">
 		</div>
+
+		<div class="container">
+			<!--  <label><b>Mobile Number</b></label>
+    <input type="text" placeholder="Enter Mobile number " name="mobile" required> -->
+
+
+			<label><b>Amount</b></label> <input type="text"
+				placeholder="Enter Amount to be added" name="balance" required>
+
+			<button type="submit" value="add">Add Money</button>
+
+		</div>
+
+		<div class="container" style="background-color: #f1f1f1"></div>
 	</form>
-	<div class="container">
-		<form method="post" action="save3" onsubmit="check(mobile_no) ">
-			<label><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" name="username" required> <label><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password"
-				required> <label><b>Mobile No</b></label> <input type="text"
-				placeholder="Enter Mobile number" name="mobile_no" required>
-			${message}
-			<button type="submit" value="save3">Sign Up</button>
-		</form>
-	</div>
-
-	<div class="container" style="background-color: #f1f1f1"></div>
-
 
 </body>
 </html>

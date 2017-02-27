@@ -13,6 +13,8 @@
 <a href="home">Home</a>
 <!-- <input type="image" src="images/5.jpg"  width="40" height="40" name="saveForm" class="home" id="saveForm" /> -->
 </div>
+Welcome!!!
+Successfully logged in.
 <div align="center">
 <table cellspacing ="10">
 <!-- <img src="images/smile.jpg" height="100px" width="90px"> -->

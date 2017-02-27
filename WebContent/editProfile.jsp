@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+	pageEncoding="ISO-8859-1"%>
+	<%@ page import="java.util.regex.*"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <style>
 form {
     border: 3px solid #f1f1f1;
 }
 
-input[type=text], input[type=password],input[type=text] {
+input[type=text], input[type=password] {
     width: 100%;
-    padding: 10px 15px;
+    padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -29,21 +27,21 @@ button {
     width: 100%;
 }
 
-/* .cancelbtn {
+.cancelbtn {
     width: auto;
     padding: 10px 18px;
     background-color: #f44336;
-} */
+}
 
- .imgcontainer {
+.imgcontainer {
     text-align: center;
-    margin: 20px 0 12px 0;
-} 
+    margin: 24px 0 12px 0;
+}
 
 img.avatar {
     width: 20%;
     border-radius: 30%;
-} 
+}
 
 .container {
     padding: 16px;
@@ -54,48 +52,70 @@ span.psw {
     padding-top: 16px;
 }
 
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-    span.psw {
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-}
+
 </style>
+<script>
+function validateEmail(emailField){
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(emailField.value) == false) 
+    {
+        alert('Invalid Email Address');
+        return false;
+    }
+
+    return true;
+
+}
+</script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+
+
 <body>
 
-<h2>Sign Up</h2>
+	<div align ="Right">
+<a href ="logout">Logout</a>
+</div>
 
-<form method="post" action="save2">
+<h2>Edit Profile</h2>
+
+
   <div class="imgcontainer">
   <div align ="Right">
-<a href ="Login">Login</a>
+<a href ="home">HOME</a>
 </div>
-    <img src="images/t_cash1.jpg"  class="avatar">
+    <img src="images/avatar.png" alt="Avatar" class="avatar">
   </div>
-	</form>
-  <div class="container">
-  <form method="post" action="save2">
-  <label><b>First name</b></label>
-    <input type="text" placeholder="Enter Username" name="fname" required>
-    
 
-    <label><b>Last name</b></label>
-    <input type="text" placeholder="Enter Password" name="lname" required>
-    <label><b>Email ID</b></label>
-    <input type="text" placeholder="Enter Mobile number" name="email" required>
+  <div class="container">
+  <form method="post" action="save2" onsubmit="return validateEmail(email);">
+ <!--  <label><b>Username</b></label>
+  <input type="text" name="username"/> -->
+  
+  
+    <label><b>Firstname</b></label>
+    <input type="text" placeholder="Enter First name" name="fname" required>
+
+    <label><b>Lastname</b></label>
+    <input type="text" placeholder="Enter Last name" name="lname" required>
         
+     <label><b>Email</b></label>
+    <input type="text" placeholder="Enter your email address" name="email" required>
+    
+    <!-- <label><b>Refer your friend</b></label>
+    <input type="text" placeholder="Enter your friend's name" name="refer" required> -->
+    
     <button type="submit" value="save2">Save</button>
     </form>
   </div>
 
-  <div class="container" style="background-color:#f1f1f1">
-    
-  </div>
 
 
 </body>
+
+
 </html>

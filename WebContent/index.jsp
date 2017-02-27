@@ -28,8 +28,8 @@ button {
 	<br/>
 	<br/>
 	<br/>
-	<div align="center">
-<img src="images/t_cash1.jpg" height="190px" width="190px">
+	<div align="center"> 
+<img src = "/images/images.jpg" height="190px" width="190px"/>
 	
 		<h1> Tcash </h1>
 		<table cellspacing="15">
@@ -44,7 +44,7 @@ button {
     </div>
 		</table>
 		
-	
+	</div>
 
 </body>
 </html>
