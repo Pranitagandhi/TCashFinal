@@ -217,7 +217,7 @@ public class TcashDao {
 		return listEmp;
 	}
 	public List<TcashBean> retrieve2(Long mobile_no,TcashBean e){
-		String sql = "select * from transaction where cast(date as date)=(cast(now() as date)-3) and mobile_no="+mobile_no+"";
+		String sql = "select * from transaction where cast(date as date)=(cast(now() as date)-4) and mobile_no="+mobile_no+"";
 		System.out.println(sql);
 		 List<TcashBean> listEmp = template.query(sql, new RowMapper<TcashBean>() {
 			 
@@ -240,7 +240,30 @@ public class TcashDao {
 		    });
 		return listEmp;
 	}
-	
+	public List<TcashBean> retrieve3(Long mobile_no,TcashBean e){
+		String sql = "select * from transaction where cast(date as date)=(cast(now() as date)-1) and mobile_no="+mobile_no+"";
+		System.out.println(sql);
+		 List<TcashBean> listEmp = template.query(sql, new RowMapper<TcashBean>() {
+			 
+			 public TcashBean mapRow(java.sql.ResultSet rs, int rownum) throws SQLException{
+		           // Emp aEmp = new Emp();
+		 
+		        	TcashBean e=new TcashBean();  
+			       
+			        
+			        e.setMobile_no(rs.getLong(1)); 
+			        e.setCredit(rs.getFloat(2));  
+			        e.setDebit(rs.getFloat(3));
+			        e.setRecipient(rs.getLong(4)); 
+			        e.setDate(rs.getString(5));
+			        e.setRemark(rs.getString(6)); 
+		            return e;
+		        }
+
+				
+		    });
+		return listEmp;
+	}
 	public boolean check(TcashBean e){
 		boolean userexists= false;
 		int rowcount = template.queryForObject("select count(*) from transaction where recipient=(select mobile_no from tcashuser1 where username ='" +e.getUsername() + "')",Integer.class);
@@ -257,7 +280,14 @@ public class TcashDao {
 		}
 	}
 
+	public float avlbal(Long mobile_no, TcashBean p) {
+		
+		
+		float rowcount = template.queryForObject("select balance from balance where mobile_no="+mobile_no+"",Integer.class);
+		return rowcount;
 
+	}
 
 
 }
+
