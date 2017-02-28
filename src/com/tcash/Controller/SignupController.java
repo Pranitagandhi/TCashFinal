@@ -45,6 +45,7 @@ public class SignupController {
 			String message = "Mobile number is already Registered";
 			return new ModelAndView("signUp", "message", message);
 		} else {
+			dao.save(emp);
 			String message1 = "Registered successfully";
 			return new ModelAndView("Login", "message1", message1);
 
@@ -59,11 +60,11 @@ public class SignupController {
 	@RequestMapping(value = "/save1", method = RequestMethod.POST)
 	public ModelAndView save1(@RequestParam("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp) {
 		if (dao.save1(emp) == true) {
-			Float b = dao.avlbal(mobile_no, emp);
+			//Float b = dao.avlbal(mobile_no, emp);
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("mobile_no", mobile_no);
 			modelAndView.setViewName("welcome");
-			modelAndView.addObject("b", b);
+			//modelAndView.addObject("b", b);
 			return modelAndView;
 
 		} else {
