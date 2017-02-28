@@ -193,7 +193,7 @@ public class TcashDao {
 
 	}
 	public List<TcashBean> retrieve1(Long mobile_no,TcashBean e){
-		String sql = "SELECT * FROM transaction where recipient=(select mobile_no from tcashuser1 where username=(select username from tcashuser1 where username='"+e.getUsername()+"'))";
+		String sql = "SELECT * FROM transaction where recipient=(select mobile_no from tcashuser1 where username=(select username from tcashuser1 where username='"+e.getUsername()+"')) and mobile_no ="+mobile_no+"";
 		System.out.println(sql);
 		 List<TcashBean> listEmp = template.query(sql, new RowMapper<TcashBean>() {
 			 
