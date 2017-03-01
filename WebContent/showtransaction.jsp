@@ -1,15 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
+<head>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<div align="right">
-	<a href="logout">Logout</a>
-</div>
-<div align="Right">
-	<a href="home">HOME</a>
-</div>
+<script>
+	$(document).ready(function() {
+		$("#datepicker").datepicker();
+	});
+	$(document).ready(function() {
+		$("#datepicker1").datepicker();
+	});
+</script>
+
+
+
 <style>
 form {
 	border: 3px solid #f1f1f1;
@@ -69,38 +81,34 @@ span.psw {
 	}
 }
 </style>
+</head>
 <body>
-${message}
+	 ${message} 
 	<h2>Show Transaction</h2>
+	<form method="post" action="retrieve3">
+		<p>start:</p>
 
+		<input id="datepicker" name="date" />
+		<p>end:</p>
+		<input id="datepicker1" name="date1" />
+		<button type="submit">Submit</button>
 
+	</form>
 	<form method="post" action="check">
-	
-		<div class="imgcontainer">
-			<div align="Right">
-				<a href="HOME">HOME</a>
-			</div>
-			<img src="images/t_cash1.jpg" class="avatar">
-		</div>
-		
 
-			<div align="center">
 
-				<p>Please enter the recipient you want to view transactions for:</p>
+		<div align="center">
 
-				<input type="text" title="Please enter valid user" name="username" />
+			<p>Please enter the recipient you want to view transactions for:</p>
 
-				<button value="check" type="submit">submit</button>
-				<p>Or View Transactions for:</p>
+			<input type="text" title="Please enter valid user" name="username" />
 
-			</div>
-		</form>
-		<form method="post" action="retrieve2">
-		 <button type="submit">Last 3 days</button>
-		 </form>
-    <button type="submit">Last 30 days</button>
-    
+			<button value="check" type="submit">submit</button>
 			
+
+		</div>
+	</form>
+
 
 </body>
 </html>
