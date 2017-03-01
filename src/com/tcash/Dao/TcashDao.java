@@ -241,7 +241,7 @@ public class TcashDao {
 		return listEmp;
 	}
 	public List<TcashBean> retrieve3(Long mobile_no,TcashBean e){
-		String sql = "select * from transaction where cast(date as date)=(cast(now() as date)-1) and mobile_no="+mobile_no+"";
+		String sql = String sql = "select * from transaction where mobile_no="+ mobile_no + " and date_format(date,'%m/%d/%Y') between '"+e.getDate()+"' and '"+e.getDate1()+"'";
 		System.out.println(sql);
 		 List<TcashBean> listEmp = template.query(sql, new RowMapper<TcashBean>() {
 			 
