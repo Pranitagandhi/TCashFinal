@@ -12,7 +12,7 @@ form {
 }
 
 input[type=text], input[type=password], input[type=text] {
-	width: 100%;
+	width: 50%;
 	padding: 10px 15px;
 	margin: 8px 0;
 	display: inline-block;
@@ -27,7 +27,7 @@ button {
 	margin: 8px 0;
 	border: none;
 	cursor: pointer;
-	width: 100%;
+	width: 30%;
 }
 
 /* .cancelbtn {
@@ -83,20 +83,28 @@ span.psw {
 	<h2>Sign Up</h2>
 
 	<form>
-		<div class="imgcontainer">
+		
 			<div align="Right">
 				<a href="Login">Login</a>
 			</div>
-			<img src="images/t_cash1.jpg" class="avatar">
-		</div>
-	</form>
+			
+		</form>
+
 	<div class="container">
 		<form method="post" action="save3" onsubmit="check(mobile_no) ">
 			<label><b>Username</b></label> <input type="text"
-				placeholder="Enter Username" name="username" required> <label><b>Password</b></label>
+				placeholder="Enter Username" name="username" required> <label>
+				<br>
+			<br>
+				<b>Password</b></label>
 			<input type="password" placeholder="Enter Password" name="password"
-				required> <label><b>Mobile No</b></label> <input type="text"
+				required> 
+				<br>
+				<br>
+				<label><b>Mobile No</b></label> <input type="text"
 				placeholder="Enter Mobile number" name="mobile_no" required>
+		<br>
+		<br>	
 			${message}
 			<button type="submit" value="save3">Sign Up</button>
 		</form>
@@ -104,6 +112,7 @@ span.psw {
 
 	<div class="container" style="background-color: #f1f1f1"></div>
 
-
+	
 </body>
 </html>
+
