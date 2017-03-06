@@ -1,110 +1,129 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <style>
 form {
 	border: 3px solid #f1f1f1;
+}
+.sidenav {
+    display: none;
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+input[type=text], input[type=password], input[type=text] {
+	width: 50%;
+	padding: 20px 18px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
 }
 
 button {
 	background-color: #009999;
 	color: white;
-	font-size: 100px;
-	padding: 14px 20px;
-	margin: 20px 0;
+	/* align: center; */
+	/*  position: absolute;
+    left: 75px; */
+   /*  right: 50px; */
+	 padding: 20px 18px; 
+	margin: 8px 0;
 	border: none;
 	cursor: pointer;
-	width: 70%;
+	width: 30%;
 }
 
-.container {
+/* .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+} */
+
+
+ .container {
 	padding: 16px;
-}
-
-.imgcontainer {
-	text-align: center;
-	margin: 24px 0 12px 0;
-}
-
-img.t_cash1 {
-	width: 20%;
-	border-radius: 30%;
-}
-
+	margin: 40px 50px;
+	width: 50%;
+} 
+/* 
 span.psw {
 	float: right;
 	padding-top: 16px;
-}
+} */
 
-@media screen and (max-width: 300px) {
-	span.psw {
-		display: block;
-		float: none;
-	}
-	.cancelbtn {
-		width: 100%;
-	}
+/* Change styles for span and cancel button on extra small screens */
+
 }
 </style>
-</head>
+<script>
+	
+	function openNav() {
+	    document.getElementById("mySidenav").style.display = "block";
+	}
+
+	function closeNav() {
+	    document.getElementById("mySidenav").style.display = "none";
+	}
+</script>
 <body>
-	<div align="Right">
-		<a href="logout">Logout</a>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+	<h1>Home</h1>
 
-	</div>
-
-	<h2>Home</h2>
-
-${message}
-	<center>
-		<br />
-		<h2>
-			<i> PAPERLESS MONEY SWEETER THAN HONEY!!</i>
-		</h2>
+	
+			
+		<div id="mySidenav" class="sidenav">
+  		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  			 <a href="home">Home</a>
+ 		 <a href="editProfile">Edit Profile</a>
+ 	 	<a href="addmoney">Add Money</a>
+ 		 <a href="fundtransfer">Fund Transfer</a>
+  		<a href="showtransaction.jsp">Show Transaction</a>
+  		<a href="logout">Logout</a>
 		</div>
-		<br />
-		<form method="post" action="editProfile.jsp">
-			<button onclick="editProfile.jsp" name="subject" type="submit"
-				class="btn btn-lg">
-				<span class="glyphicon glyphicon-edit" style="font-size: larger;"></span>
-				Edit Profile
-			</button>
-		</form>
-		<form method="post" action="addmoney.jsp">
-			<button onclick="addmoney.jsp" name="subject" type="submit"
-				class="btn btn-lg">
-				<span class="glyphicon glyphicon-plus-sign"></span> Add Money
-			</button>
-		</form>
-		<form method="post" action="fundtransfer.jsp">
-			<button onclick="fundtransfer.jsp" name="subject" type="submit"
-				class="btn btn-lg">
-				<span class="glyphicon glyphicon-transfer"></span> Fund Transfer
-			</button>
-		</form>
-
-
-		<form method="post" action="showtransaction.jsp">
-			<button onclick="showtransaction.jsp" name="subject" type="submit"
-				class="btn btn-lg">
-				<span class="glyphicon glyphicon-transfer"></span>Show Transactions
-			</button>
-		</form>
-
-
+		
+		<div align="center">
+			<br>
+			<br>
+			
+			<h1><i>PAPERLESS MONEY SWEETER THAN HONEY</i></h1>
 		</div>
-	</center>
-	</form>
 
 </body>
-
 </html>
