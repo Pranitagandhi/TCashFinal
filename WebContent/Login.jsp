@@ -11,7 +11,7 @@ form {
 }
 
 input[type=text], input[type=password],input[type=text] {
-    width: 100%;
+    width: 50%;
     padding: 10px 15px;
     margin: 8px 0;
     display: inline-block;
@@ -26,7 +26,8 @@ button {
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 30%;
+    align: center
 }
 
 /* .cancelbtn {
@@ -71,19 +72,22 @@ ${message1}</div>
 
 <h2>Login</h2>
 
-<form method="post" action="save1">
+<form method="get" action="save1">
   <div class="imgcontainer">
-    <img src="images/t_cash1.jpg"  class="avatar">
+   
   </div>
 ${message}
   <div class="container">
   <label><b>Mobile No</b></label>
     <input type="text" placeholder="Enter Username" name="mobile_no" required>
+    <br>
+    <br>
     
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
-    
+    <br>
+    <br>
         
     <button type="submit" value="save1">Login</button>
     
