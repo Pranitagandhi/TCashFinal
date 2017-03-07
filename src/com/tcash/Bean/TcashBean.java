@@ -11,6 +11,7 @@ public class TcashBean {
 	private float balance;
 	private float credit;
 	private float debit;
+	private String date1;
 	private String date;
 	private Long recipient;
 	private String remark;
@@ -112,6 +113,13 @@ public class TcashBean {
 	}
 
 	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getDate1() {
+		return date;
+	}
+
+	public void setDate1(String date1) {
 		this.date = date;
 	}
 }
