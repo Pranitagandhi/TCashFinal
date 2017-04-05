@@ -276,90 +276,14 @@ public class TcashController {
 }
 }
 	
+	/*@WebServlet("/logout")
+	public class LogoutServlet extends HttpServlet {*/
+
+		/*@RequestMapping("/logout")
+	    protected String logout(HttpServletRequest request, HttpServletResponse response,@ModelAttribute("mobile_no") Long mobile_no,@ModelAttribute("emp") TcashBean emp) throws ServletException, IOException {
+	        request.getSession().invalidate();
+	        return "redirect:/index.jsp";
+	    }*/
+
 	
 
-
-	@RequestMapping("/fundtransfer")
-	public ModelAndView showform5() {
-		return new ModelAndView("fundtransfer", "command", new TcashBean());
-	}
-
-	@RequestMapping(value = "/fundcheck", method = RequestMethod.POST)
-	public ModelAndView fundcheck(@ModelAttribute("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp) {
-		if (dao.fundcheck(mobile_no, emp) == true) {
-			slf4jLogger.error("Recipient is registered");
-			if (dao.submit(mobile_no, emp) == 1) {
-				if (dao.fund(mobile_no, emp) == true) {
-					dao.fund3(mobile_no, emp);
-					dao.fund4(mobile_no, emp);
-					slf4jLogger.info("Fund transferred from {} to the recipient successfully",mobile_no);
-					Float b = dao.avlbal(mobile_no, emp);
-					ModelAndView modelAndView = new ModelAndView();
-					modelAndView.addObject("mobile_no", mobile_no);
-					modelAndView.addObject("b", b);
-					String message = "Fund transferred!! Available balance " + b;
-					return new ModelAndView("home", "message", message);
-
-				} else {
-					dao.fund2(emp);
-					dao.fund3(mobile_no, emp);
-					dao.fund4(mobile_no, emp);
-					slf4jLogger.info("Fund transferred from {} to the recipient successfully",mobile_no);
-					Float b = dao.avlbal(mobile_no, emp);
-					ModelAndView modelAndView = new ModelAndView();
-					modelAndView.addObject("mobile_no", mobile_no);
-					modelAndView.addObject("b", b);
-					String message = "Fund transferred!! Available balance " + b;
-					return new ModelAndView("home", "message", message);
-
-				}
-			} else {
-				slf4jLogger.error("Insufficient funds to transfer from user {}",mobile_no);
-				String message = "Insufficient Funds!";
-				return new ModelAndView("fundtransfer", "message", message);
-			}
-		} else {
-			slf4jLogger.error("Recipient is  not registered");
-			String message1 = "Recipient not registered!!!";
-			return new ModelAndView("fundtransfer", "message", message1);
-		}
-
-	}
-
-	/*@RequestMapping(value = "/retrieve2", method = RequestMethod.POST)
-	public ModelAndView showform7(@ModelAttribute("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp) {
-		java.util.List<TcashBean> list = dao.retrieve2(mobile_no, emp);
-		
-		return new ModelAndView("resultform", "list", list);
-	}*/
-
-	@RequestMapping(value = "/retrieve3", method = RequestMethod.POST)
-	public ModelAndView showform8(@ModelAttribute("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp) {
-		java.util.List<TcashBean> list = dao.retrieve3(mobile_no, emp);
-		return new ModelAndView("resultform", "list", list);
-	}
-
-	@RequestMapping("/error")
-	public ModelAndView error() {
-		String message = "invalid recipient";
-		return new ModelAndView("error", "message", message);
-	}
-
-	@RequestMapping(value = "/check", method = RequestMethod.POST)
-	public ModelAndView check(@ModelAttribute("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp) {
-		if (dao.check(emp) == true) {
-			java.util.List<TcashBean> list = dao.retrieve1(mobile_no, emp);
-			return new ModelAndView("resultform", "list", list);
-		} else {
-			String message = "invalid recipient";
-			return new ModelAndView("showtransaction", "message", message);
-		}
-	}
-
-	/*@RequestMapping("/logout")
-	public String logout(HttpSession session,@ModelAttribute("mobile_no") Long mobile_no) {
-		session.invalidate();
-		slf4jLogger.info("Session is logged out for mobile {}",mobile_no); 
-		return "index";
-	}*/
-}
