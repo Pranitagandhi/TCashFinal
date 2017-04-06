@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.jdbc.ResultSet;
 import com.tcash.Bean.TcashBean;
-import com.tcash.Controller.SignupController;
+import com.tcash.Controller.TcashController;
 
 public class TcashDao {
 
@@ -23,7 +23,7 @@ public class TcashDao {
 	public void setTemplate(JdbcTemplate template) {
 		this.template = template;
 	}
-	 private static Logger slf4jLogger = LoggerFactory.getLogger(SignupController.class);
+	 private static Logger slf4jLogger = LoggerFactory.getLogger(TcashController.class);
 
 	public boolean save3(TcashBean e) {
 		boolean userExists = false;
@@ -41,16 +41,24 @@ public class TcashDao {
 
 	public int save(TcashBean p) {
 		String n = p.getUsername();
-
-		String sql = "insert into TcashUser1(username,password,Mobile_no) values('" + p.getUsername() + "','"
-				+ p.getPassword() + "'," + p.getMobile_no() + ")";
-		return template.update(sql);
+		
+	if(p.getPassword1().equals(p.getPassword()) ){
+		System.out.println("if");
+		String sql = "insert into TcashUser1(username,password,Mobile_no) values('" + p.getUsername() + "',SHA1('"
+				+ p.getPassword() + "')," + p.getMobile_no() + ")";
+		template.update(sql);
+		return 2;
+	}else{
+		System.out.println("else");
+		return 1;
+	}
 	}
 
 	public boolean save1(TcashBean e) {
 		boolean userExists = false;
 		int rowcount = template.queryForObject("select count(*) from TcashUser1 where mobile_no = '" + e.getMobile_no()
-				+ "' and password = '" + e.getPassword() + "'", Integer.class);
+				+ "' and password =SHA1( '" + e.getPassword() + "')", Integer.class);
+		
 		if (rowcount == 1) {
 			userExists = true;
 			return userExists;
@@ -113,7 +121,7 @@ public class TcashDao {
 	public int credit(Long mobile_no, TcashBean p1) {
 		Float n1 = p1.getCredit();
 		Long p2 = p1.getRecipient();
-		String sql = "insert into transaction values(" + p2 + "," + n1 + ",0,0,CURRENT_TIMESTAMP(),'" + p1.getRemark()
+		String sql = "insert into transaction values(" + p2 + "," + n1 + ",0,"+mobile_no+",CURRENT_TIMESTAMP(),'" + p1.getRemark()
 				+ "')";
 		slf4jLogger.info("fund is credited, {}",n1); 
 		return template.update(sql);
@@ -189,6 +197,7 @@ public class TcashDao {
 				"select count(*) from tcashuser1 where mobile_no = " + e.getRecipient() + "", Integer.class);
 		if (rowcount == 1) {
 			userExists = true;
+			
 			return userExists;
 		} else {
 
@@ -246,7 +255,7 @@ public class TcashDao {
 		return listEmp;
 	}*/
 
-	public List<TcashBean> retrieve3(Long mobile_no, TcashBean e) {
+	public List<TcashBean> retrieve2(Long mobile_no, TcashBean e) {
 		String sql = "select * from transaction where mobile_no="+ mobile_no + " and date_format(date,'%m/%d/%Y') between '"+e.getDate()+"' and '"+e.getDate1()+"'";
 	
 		List<TcashBean> listEmp = template.query(sql, new RowMapper<TcashBean>() {
@@ -287,7 +296,38 @@ public class TcashDao {
 			return userexists;
 		}
 	}
+	
+	public int update(Long mobile_no, TcashBean e){
+		Long m=e.getNew_mob();
+		String sql="update tcashuser1 set mobile_no="+m+" where mobile_no="+mobile_no+"";
+		return template.update(sql);
+		
+	}
+	public List<TcashBean> edit(Long mobile_no, TcashBean e) {
+		String sql = template.queryForObject("select * from tcashuser1 where mobile_no="+ mobile_no + "",String.class);
+		System.out.println("mobile no "+mobile_no);
+		System.out.println("fname"+sql);
+		System.out.println(e.getFname());
+		List<TcashBean> listEmp = template.query(sql, new RowMapper<TcashBean>() {
 
+			public TcashBean mapRow(java.sql.ResultSet rs, int rownum) throws SQLException {
+				// Emp aEmp = new Emp();
+
+				TcashBean e = new TcashBean();
+
+				e.setFname(rs.getString(3));
+				e.setLname(rs.getString(4));
+				e.setEmail(rs.getString(5));
+				e.setUsername(rs.getString(6));
+				return e;
+			}
+
+		});
+		System.out.println(e.getFname());
+		return listEmp;
+	}
+
+	
 	public float avlbal(Long mobile_no, TcashBean p) {
 
 		float rowcount = template.queryForObject("select balance from balance where mobile_no=" + mobile_no + "",
@@ -295,7 +335,17 @@ public class TcashDao {
 		return rowcount;
 
 	}
+	/*public String editProfile(Long mobile_no, TcashBean p) {
 
+		String m = "select fname from tcashuser1 where mobile_no=" + mobile_no + "";
+		System.out.println("Name is "+m);
+		String m1 = "select lname from tcashuser1 where mobile_no=" + mobile_no + "";
+		String m2 = "select email from tcashuser1 where mobile_no=" + mobile_no + "";
+	
+		return m;
+
+	}*/
 }
+
 
 
