@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +63,7 @@ public class TcashController {
 		}
 		}
 	
+	
 
 	@RequestMapping("/Login")
 	public ModelAndView Login() {
@@ -72,18 +75,18 @@ public class TcashController {
 		if (dao.save1(emp) == true) {
 			slf4jLogger.info("Mobile_no is registered, {}", mobile_no);
 			ModelAndView modelAndView = new ModelAndView();
-			/*if(dao.add1(mobile_no, emp) == true){
+			if(dao.add1(mobile_no, emp) == true){
 				float b = dao.avlbal(mobile_no, emp);
 				modelAndView.addObject("mobile_no", mobile_no);
 				System.out.println("balance"+b);
 					modelAndView.addObject("b", b);
 			}else{
 				dao.add2(mobile_no, emp);
-				float b = dao.avlbal(mobile_no, emp);*/
+				float b = dao.avlbal(mobile_no, emp);
 				modelAndView.addObject("mobile_no", mobile_no);
-				/*System.out.println("balance"+b);
+				System.out.println("balance"+b);
 					modelAndView.addObject("b", b);
-			}*/
+			}
 			
 			/*String message = ""+b;
 			return new ModelAndView("home", "message", message);
@@ -99,6 +102,24 @@ public class TcashController {
 		}
 
 	}
+	/*@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public ModelAndView edit(@ModelAttribute("mobile_no") Long mobile_no, @RequestParam("fname") String fname,
+			@RequestParam("lname") String lname, @RequestParam("email") String email, @RequestParam("username") String username,
+			@ModelAttribute("emp") TcashBean emp) {
+		java.util.List<TcashBean> list = dao.edit(mobile_no, emp);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("mobile_no", mobile_no);
+		modelAndView.addObject("fname", fname);
+		System.out.println("Firstname"+fname);
+		modelAndView.addObject("lname", lname);
+		modelAndView.addObject("email", email);
+		modelAndView.addObject("username", username);
+		modelAndView.setViewName("editoutput");
+
+		return new ModelAndView("editoutput", "list", list);
+		
+	}*/
+	
 	@RequestMapping(value = "/bal", method = RequestMethod.POST)
 	public ModelAndView bal(@ModelAttribute("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp) {
 		float b = dao.avlbal(mobile_no, emp);
@@ -135,8 +156,8 @@ public class TcashController {
 		System.out.println(emp.getUsername());
 	
 		ModelAndView modelAndView = new ModelAndView();
-	/*	String m =dao.editProfile(mobile_no, emp);
-		System.out.println("name"+m);
+		/*String m =dao.editProfile(mobile_no, emp);*/
+		/*System.out.println("name"+m);
 		modelAndView.addObject("m", m);*/
 		modelAndView.addObject("mobile_no", mobile_no);
 		modelAndView.addObject("fname", fname);
@@ -147,6 +168,14 @@ public class TcashController {
 		return modelAndView;
 
 	}
+	@RequestMapping("/update")
+	public ModelAndView update(@ModelAttribute("mobile_no") Long mobile_no, @ModelAttribute("emp") TcashBean emp,HttpSession httpSession) {
+		dao.update(mobile_no,emp);
+		System.out.println("mobile no updated");
+		String message = "Please Login using your new registered number!";
+		return new ModelAndView("index", "message", message);
+	}
+
 
 	@RequestMapping("/addmoney")
 	public ModelAndView addmoney() {
@@ -261,29 +290,22 @@ public class TcashController {
 		}
 	}
 
+
 @RequestMapping("/logout")
-	public String logout(HttpServletRequest request,HttpSession session, @ModelAttribute("mobile_no") Long mobile_no,@ModelAttribute("emp") TcashBean emp) {
+	public String logout(/*HttpServletRequest request,HttpSession session,*/ @ModelAttribute("mobile_no") Long mobile_no,@ModelAttribute("emp") TcashBean emp,BindingResult bindingResult, SessionStatus sessionStatus) {
 	/*String m = new Long(mobile_no).toString();
-     session.removeAttribute(m);*/
-	
-		session.invalidate();   
-		
-	/*}*/
-		slf4jLogger.info("Session is logged out for mobile {}", mobile_no);
-		return "index";
+     
+	session.invalidate();*/
+	  sessionStatus.setComplete();
+	slf4jLogger.info("Session is logged out for mobile {}", mobile_no);
+	return "index";
 		
 
 }
 }
 	
-	/*@WebServlet("/logout")
-	public class LogoutServlet extends HttpServlet {*/
+	
 
-		/*@RequestMapping("/logout")
-	    protected String logout(HttpServletRequest request, HttpServletResponse response,@ModelAttribute("mobile_no") Long mobile_no,@ModelAttribute("emp") TcashBean emp) throws ServletException, IOException {
-	        request.getSession().invalidate();
-	        return "redirect:/index.jsp";
-	    }*/
 
 	
 
